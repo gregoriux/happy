@@ -1,0 +1,18 @@
+services:
+  happy-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3005:3005"
+    volumes:
+      - happy-data:/data
+    environment:
+      - HANDY_MASTER_SECRET=70758d82b95d423faa72b89017e9887dcd44297626446eedf75fda04e994beeb
+      - PORT=3005
+    working_dir: /repo/packages/happy-server
+    command: ["sh", "-c", "exec /repo/node_modules/.bin/tsx sources/standalone.ts serve"]
+    restart: unless-stopped
+
+volumes:
+  happy-data:
